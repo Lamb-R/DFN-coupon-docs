@@ -215,17 +215,11 @@
 </table>
 
 <!-- ================= 待确认清单 ================= -->
-<h2>五、待业务方确认清单</h2>
+<h2>五、待业务方确认清单（此规则为现状， 需业务知悉）</h2>
 <div class="todo">
   <ol>
-    <li><b>Q1（已确认）</b>：<span class="done">副账号可以将主账号授权的车设置为默认车 —— 联友侧已支持 ✓</span></li>
-    <li><b>Q0（范围确认）</b>：业务方确认知悉现状<b>不支持</b>场景 1 / 场景 2（三维度匹配机制已具备， 但 VIN 只查认证车主， 快捷 VIN / 副账号 VIN 不参与）， 并确认将"卡包查询 VIN 扩展为个人中心默认车 VIN"纳入本次需求范围。<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q2</b>：副账号的授权车（主账号认证车）在 B 账号下按<b>认证车</b>还是<b>快捷车</b>身份参与默认车设置判定？（影响 B 自己快捷绑车后默认车的锁定/切换行为）<span class="owner ly">联友</span></li>
-    <li><b>Q3</b>：副账号 B 以 VIN=1 看到的券， <b>核销权限</b>是否与主账号 A 相同？（A、B 都能核销同一张券， 还是仅领取人/认证车主可核销）<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q4</b>：主副账号<b>解除授权</b>后， B 的默认车如何处理？B 已看到的 VIN 相关券是否仍在卡包展示？<span class="owner ly">联友</span><span class="owner dn">DNDC</span></li>
-    <li><b>Q5</b>：一台认证车1 同时授权<b>多个副账号</b>（B、C…）时， 是否所有副账号卡包均可见 VIN=1 相关券？是否需要上限？<span class="owner biz">业务</span></li>
-    <li><b>Q6</b>：卡包查询 VIN 取"默认车"后， 用户<b>切换默认车</b>（仅快捷车场景）时卡包券列表是否实时变化？（影响 C 端体验预期）<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q7</b>：<b>小程序端是否需要支持主副账号概念</b>？（现状仅 App 有主副账号， 小程序没有 —— 若需支持， <b>依赖联友开发</b>， 且 DNDC 卡包查询需同步适配小程序端）<span class="owner ly">联友</span><span class="owner biz">业务</span></li>
+    <li><b>Q1</b>：仅有快捷车时：可在快捷车之间<b>互相切换默认车辆</b>；存在认证车时：<b>只能设置认证车为默认车辆</b>。<span class="owner ly">联友</span></li>
+    <li><b>Q2</b>：<b>主副账号概念仅 App 端存在， 小程序端没有主副账号概念</b>。<span class="owner ly">联友</span></li>
   </ol>
 </div>
 
