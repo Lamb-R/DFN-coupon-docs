@@ -3,237 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>卡包券可见性 — 现状 / 目标 流程确认图（主副账号 · 认证车 · 快捷车）</title>
+<title>卡券中心 · 文档目录</title>
 <style>
-  @page { size: A4; margin: 14mm 12mm; }
-  * { box-sizing: border-box; }
-  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: #eef0f4; color: #2c3038; font-size: 13px; line-height: 1.7; }
-  .page { max-width: 960px; margin: 0 auto; background: #fff; padding: 36px 44px 48px; }
-  @media print { body { background: #fff; } .page { padding: 0; max-width: none; } .fc-wrap { break-inside: avoid; } }
-
-  h1 { font-size: 22px; margin: 0 0 4px; }
-  .subtitle { color: #6b7280; font-size: 12.5px; margin-bottom: 14px; }
-  h2 { font-size: 16px; margin: 30px 0 10px; padding-left: 10px; border-left: 4px solid #1d6fe0; }
-  h2.now { border-left-color: #8a919c; }
-  h2.goal { border-left-color: #0e9f6e; }
-  h3 { font-size: 13.5px; margin: 14px 0 6px; color: #1f2733; }
-
-  .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; background: #f8f9fb; border: 1px solid #e6e9ee; border-radius: 8px; padding: 10px 16px; font-size: 12px; margin: 12px 0 4px; }
-  .legend span { display: inline-flex; align-items: center; gap: 6px; }
-  .chip { width: 26px; height: 14px; border-radius: 3px; display: inline-block; border: 1px solid; }
-
-  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-  .rule { border-radius: 8px; padding: 12px 16px; font-size: 12.5px; line-height: 1.8; }
-  .rule .org { display: inline-block; font-size: 11.5px; padding: 1px 10px; border-radius: 10px; margin-bottom: 6px; font-weight: 600; color: #fff; }
-  .rule.ly { background: #f0f7ff; border: 1px solid #c9dcff; }
-  .rule.ly .org { background: #1d6fe0; }
-  .rule.dn { background: #effaf4; border: 1px solid #bfe8d2; }
-  .rule.dn .org { background: #0e9f6e; }
-  .rule b { color: #1f2733; }
-  .rule .upd { background: #f3ecff; color: #7442d8; border-radius: 8px; padding: 0 8px; font-size: 11px; }
-
-  .fc-wrap { border: 1px solid #e6e9ee; border-radius: 10px; padding: 22px 18px 18px; margin: 10px 0; background: #fff; }
-  .fc-wrap.now { border-color: #d8dde5; background: #fbfbfc; }
-  .fc-wrap.goal { border-color: #bfe8d2; background: #fbfffc; }
-  .fc-title { font-size: 12px; color: #6b7280; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px dashed #e3e6ea; }
-  .fc { display: flex; flex-direction: column; align-items: center; }
-
-  .nd { border-radius: 6px; padding: 8px 16px; font-size: 12.5px; text-align: center; line-height: 1.65; max-width: 580px; background: #fff; }
-  .nd b { font-weight: 700; }
-  .nd.start { border-radius: 999px; background: #1f2733; color: #fff; padding: 6px 26px; }
-  .nd.end-ok { border-radius: 999px; background: #0e9f6e; color: #fff; padding: 6px 26px; }
-  .nd.end-no { border-radius: 999px; background: #8a919c; color: #fff; padding: 6px 26px; }
-  .nd.proc { border: 1.5px solid #1d6fe0; }
-  .nd.proc.dn { border-color: #0e9f6e; }
-  .nd.data { border: 1.5px solid #7442d8; background: #f6f1ff; }
-  .nd.dec { border: 1.5px dashed #c07b12; background: #fff8ea; font-weight: 600; color: #8a5a06; }
-  .nd.note { border: 1px solid #d8dde5; background: #f8f9fb; color: #57606a; font-size: 12px; }
-  .nd.bad { border: 1.5px solid #d64545; background: #fff5f5; }
-  .nd.ok-box { border: 1.5px solid #0e9f6e; background: #f0faf4; }
-  .nd .small { font-weight: 400; font-size: 11.5px; color: #6b7280; }
-
-  .arr { display: flex; flex-direction: column; align-items: center; padding: 2px 0; }
-  .arr .line { width: 2px; height: 14px; background: #98a1ad; }
-  .arr .head { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid #98a1ad; }
-
-  .branch2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; width: 100%; margin-top: 2px; }
-  .branch2 .col { display: flex; flex-direction: column; align-items: center; }
-  .branch2 .col .tagline { font-size: 12px; font-weight: 700; padding: 2px 14px; border-radius: 999px; margin: 4px 0; }
-  .tagline.yes { background: #e6f7ef; color: #0e9f6e; border: 1px solid #bfe8d2; }
-  .tagline.no { background: #f1f2f4; color: #6b7280; border: 1px solid #d8dde5; }
-  .tagline.bad { background: #fff1f1; color: #d64545; border: 1px solid #f3c1c1; }
-  .hbar { width: 62%; height: 2px; background: #c4cbd6; margin: 2px 0 8px; }
-
-  table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 8px 0; }
-  th { background: #f3f5f8; padding: 7px 10px; border: 1px solid #e3e6ea; color: #57606a; text-align: left; white-space: nowrap; }
-  td { padding: 7px 10px; border: 1px solid #e3e6ea; vertical-align: top; }
-  .ok { color: #0e9f6e; font-weight: 700; }
-  .no2 { color: #98a1ad; }
-  .no3 { color: #d64545; font-weight: 700; }
-  .qmark { color: #d64545; font-weight: 700; }
-
-  .concl { border-radius: 8px; padding: 12px 18px; font-size: 12.5px; line-height: 1.85; margin: 10px 0; }
-  .concl.red { background: #fff5f5; border: 1.5px solid #f3c1c1; color: #8f2626; }
-  .concl.green { background: #f0faf4; border: 1.5px solid #bfe8d2; color: #14663f; }
-  .concl b { font-weight: 700; }
-
-  .todo { border: 1.5px solid #f0c36d; background: #fffdf3; border-radius: 8px; padding: 14px 20px; }
-  .todo ol { margin: 6px 0; padding-left: 22px; }
-  .todo li { margin-bottom: 7px; }
-  .todo .owner { font-size: 11.5px; padding: 1px 8px; border-radius: 8px; margin-left: 6px; white-space: nowrap; }
-  .owner.ly { background: #e8f1ff; color: #1d6fe0; }
-  .owner.dn { background: #e6f7ef; color: #0e9f6e; }
-  .owner.biz { background: #f3ecff; color: #7442d8; }
-  .done { color: #0e9f6e; font-weight: 600; }
-
-  .footer { color: #9aa1ab; font-size: 11.5px; margin-top: 30px; border-top: 1px solid #eceef1; padding-top: 10px; line-height: 1.8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#f3f5f8; color:#1f2937; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; padding:48px 20px;
+  }
+  header { text-align:center; margin-bottom:36px; }
+  header .logo {
+    display:inline-block; width:44px; height:44px; line-height:44px; border-radius:10px;
+    background:linear-gradient(135deg,#1d6fe0,#0e9f6e); color:#fff; font-size:20px; font-weight:700;
+    margin-bottom:14px;
+  }
+  h1 { font-size:24px; font-weight:600; letter-spacing:.5px; }
+  header p { color:#6b7280; font-size:13px; margin-top:8px; }
+  .grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:18px; width:100%; max-width:920px;
+  }
+  a.card {
+    display:block; background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+    padding:22px 24px; text-decoration:none; color:inherit;
+    transition:box-shadow .2s, transform .2s, border-color .2s;
+  }
+  a.card:hover { box-shadow:0 6px 18px rgba(29,111,224,.12); transform:translateY(-2px); border-color:#1d6fe0; }
+  .card .tag {
+    display:inline-block; font-size:11px; padding:2px 8px; border-radius:4px;
+    margin-bottom:10px; font-weight:500;
+  }
+  .tag.flow  { background:#e8f1ff; color:#1d6fe0; }
+  .tag.prd   { background:#e6f7ef; color:#0e9f6e; }
+  .tag.doc   { background:#f4f0ff; color:#7442d8; }
+  .card h2 { font-size:16px; font-weight:600; margin-bottom:6px; }
+  .card p  { font-size:13px; color:#6b7280; line-height:1.6; }
+  .card .arrow { color:#1d6fe0; font-size:13px; margin-top:12px; display:inline-block; }
+  .coming {
+    border:1px dashed #cbd5e1; border-radius:12px; padding:22px 24px;
+    color:#94a3b8; font-size:13px; background:transparent; text-align:center;
+    display:flex; align-items:center; justify-content:center;
+  }
+  footer { margin-top:auto; padding-top:40px; color:#9ca3af; font-size:12px; text-align:center; }
 </style>
 </head>
 <body>
-<div class="page">
+  <header>
+    <div class="logo">券</div>
+    <h1>卡券中心 · 文档目录</h1>
+    <p>DNDC 卡券中心业务文档 · GitHub Pages</p>
+  </header>
 
-<h1>卡包券可见性 — 现状 / 目标 流程确认图</h1>
-<div class="subtitle">主副账号 · 认证车 · 快捷车 ｜ 用途：与业务方确认需求 · 2026-11-11</div>
+  <div class="grid">
+    <a class="card" href="./coupon-visibility-flow.html">
+      <span class="tag flow">流程确认</span>
+      <h2>主副账号 · 卡包券可见性流程确认图</h2>
+      <p>现状 / 目标流程、场景 1（认证车主 + 快捷绑车共享查看）与场景 2（主账号授权副账号）对照、待业务方确认清单。</p>
+      <span class="arrow">查看文档 →</span>
+    </a>
 
-<div class="legend">
-  <span><span class="chip" style="border-color:#1d6fe0;background:#e8f1ff"></span>联友公司负责</span>
-  <span><span class="chip" style="border-color:#0e9f6e;background:#e6f7ef"></span>DNDC 卡券中心负责</span>
-  <span><span class="chip" style="border-color:#d64545;background:#fff1f1"></span>现状不支持 / 瓶颈点</span>
-</div>
-
-<!-- ================= 场景区（置顶） ================= -->
-<h2>〇、业务场景（本次确认对象）</h2>
-<div class="rules">
-  <div class="rule">
-    <span class="org" style="background:#57606a;">场景 1 · 共享查看同一台车的券（App ＋ 小程序）</span><br>
-    A 账号下有认证车1（VIN=1）， B 账号快捷绑定了车1（VIN=1）；给 VIN1 发放 / 主动领取了券1。<br>
-    <b>期望：</b>A、B 账号的卡包里都可查看到券1。
+    <div class="coming">更多文档将陆续添加…</div>
   </div>
-  <div class="rule">
-    <span class="org" style="background:#57606a;">场景 2 · 主账号授权副账号（仅 App， 小程序无主副账号概念）</span><br>
-    A 为主账号（认证车1， VIN=1）， 授权给副账号 B 使用；B 将认证车1设为默认车。<br>
-    <b>期望：</b>主副账号下与 VIN 相关的券， 可分别在 A、B 账号的卡包查询到。
-  </div>
-</div>
 
-<!-- ================= 现状规则区 ================= -->
-<h2>一、系统现状规则</h2>
-<div class="rules">
-  <div class="rule ly">
-    <span class="org">现状 1 · 默认车辆设置（联友开发）</span><br>
-    个人中心存在<b>认证车</b>与<b>快捷车</b>两种车辆关系：<br>
-    ① 仅有快捷车时：可在快捷车之间<b>互相切换默认车辆</b>；<br>
-    ② 存在认证车时：<b>只能设置认证车为默认车辆</b>；<br>
-    ③ <b>副账号可以将主账号授权的车设置为默认车</b>（联友侧支持）。
-  </div>
-  <div class="rule dn">
-    <span class="org">现状 2 · 卡包券查询（DNDC 卡券中心）</span><br>
-    卡包按<b>手机号、oneid、VIN</b> 查询领券记录， <b>任意一个有值且匹配</b>即展示；但 <b>VIN 维度只查认证车主的 VIN</b> —— 快捷 VIN 不参与；副账号默认车（主账号授权车）的 VIN <b>同样不参与查询</b>。
-  </div>
-</div>
-<div class="rule ly" style="margin-top:12px;">
-  <span class="org">现状 3 · 端差异（联友开发）</span><br>
-  <b>主副账号概念仅 App 端存在， 小程序端没有主副账号概念</b> —— 场景 2（主账号授权副账号）仅适用于 App；小程序端用户只能走场景 1（认证车 / 快捷车）链路。小程序侧相关能力<b>依赖联友开发</b>。
-</div>
-
-<!-- ================= 流程 1：现状 ================= -->
-<h2 class="now">二、现状流程：手机号 / oneid / VIN 任意匹配， 但 VIN 只查认证车主 —— 两个场景均不支持</h2>
-<div class="fc-wrap now">
-  <div class="fc">
-    <div class="nd start">用户打开卡包</div>
-    <div class="arr"><div class="line"></div><div class="head"></div></div>
-    <div class="nd proc">读取个人中心默认车（联友）</div>
-    <div class="arr"><div class="line"></div><div class="head"></div></div>
-    <div class="nd proc dn">卡包查询：手机号 / oneid / VIN <b>任意匹配即展示</b><br><span class="small">但 VIN 只查<b>认证车主</b>的 VIN —— 快捷 VIN、副账号 VIN 不参与</span></div>
-    <div class="hbar"></div>
-    <div class="branch2">
-      <div class="col">
-        <div class="tagline yes">A · 认证车主</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">认证 VIN=1 命中券1</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">A 可查看券1 ✓</div>
-      </div>
-      <div class="col">
-        <div class="tagline bad">B · 快捷绑车 / 副账号</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd bad">手机号 / oneid 无券1 记录；<br>快捷 VIN / 副账号 VIN <b>不参与匹配</b></div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-no">B 查不到券1 ✗</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="concl red"><b>结论：场景 1、场景 2 现状均不支持。</b>三维度匹配机制本身已具备， 瓶颈仅在 VIN 维度 —— 只认认证车主的 VIN， 快捷车 / 副账号授权车的 VIN 均不参与。</div>
-
-<!-- ================= 流程 2：目标 ================= -->
-<h2 class="goal">三、目标流程：三维度匹配机制不变， VIN 扩展为默认车 VIN —— 两个场景均达成</h2>
-<div class="fc-wrap goal">
-  <div class="fc">
-    <div class="nd start">用户打开卡包（迭代后）</div>
-    <div class="arr"><div class="line"></div><div class="head"></div></div>
-    <div class="nd proc">读取个人中心默认车（联友 · 逻辑不变）</div>
-    <div class="arr"><div class="line"></div><div class="head"></div></div>
-    <div class="nd proc dn">卡包查询：手机号 / oneid / VIN 任意匹配（机制同现状）<br><span class="small"><b>迭代点</b>：VIN 取值扩展为<b>默认车 VIN</b>（含快捷车、副账号授权车）</span></div>
-    <div class="hbar"></div>
-    <div class="branch2" style="grid-template-columns:1fr 1fr 1fr;">
-      <div class="col">
-        <div class="tagline yes">场景 1 · A</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 认证车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
-      </div>
-      <div class="col">
-        <div class="tagline yes">场景 1 · B（快捷绑车）</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 快捷车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
-      </div>
-      <div class="col">
-        <div class="tagline yes">场景 2 · B（仅 App）</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 主账号授权车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="concl green"><b>结论：一处迭代同时满足两个场景</b> —— 三维度匹配机制不变， 仅将 VIN 取值从"认证车主的 VIN"扩展为"个人中心默认车 VIN"；联友默认车设置逻辑不变。</div>
-
-<!-- ================= 现状 vs 目标对照 ================= -->
-<h2>四、现状 × 目标 对照表</h2>
-<table>
-  <tr><th style="width:230px;">场景</th><th>现状（VIN 只查认证车主）</th><th>目标（VIN 扩展为默认车 VIN）</th><th>依赖</th></tr>
-  <tr><td>场景 1 · A（认证车主）<br><span style="font-weight:400;color:#6b7280;">App ＋ 小程序</span></td><td class="ok">可见 ✓</td><td class="ok">可见 ✓</td><td>无</td></tr>
-  <tr><td>场景 1 · B（快捷绑车）<br><span style="font-weight:400;color:#6b7280;">App ＋ 小程序</span></td><td class="no3">不可见 ✗（快捷 VIN 不参与查询）</td><td class="ok">可见 ✓</td><td>DNDC：VIN 扩展至默认车（含快捷车）</td></tr>
-  <tr><td>场景 2 · A（主账号）<br><span style="font-weight:400;color:#6b7280;">仅 App</span></td><td class="ok">可见 ✓</td><td class="ok">可见 ✓</td><td>无</td></tr>
-  <tr><td>场景 2 · B（副账号， 默认车=主账号授权车）<br><span style="font-weight:400;color:#6b7280;">仅 App（小程序无主副账号概念）</span></td><td class="no3">不可见 ✗（卡包不查询副账号 VIN）</td><td class="ok">可见 ✓</td><td>DNDC：VIN 扩展至默认车（含授权车）；<br>联友默认车设置已支持 <span class="ok">✓</span></td></tr>
-  <tr><td>小程序端主副账号能力</td><td class="no3">不支持 ✗（小程序无主副账号概念）</td><td>按需评估</td><td class="qmark">依赖联友开发 —— 是否纳入范围待业务确认</td></tr>
-</table>
-
-<!-- ================= 待确认清单 ================= -->
-<h2>五、待业务方确认清单</h2>
-<div class="todo">
-  <ol>
-    <li><b>Q1（已确认）</b>：<span class="done">副账号可以将主账号授权的车设置为默认车 —— 联友侧已支持 ✓</span></li>
-    <li><b>Q0（范围确认）</b>：业务方确认知悉现状<b>不支持</b>场景 1 / 场景 2（三维度匹配机制已具备， 但 VIN 只查认证车主， 快捷 VIN / 副账号 VIN 不参与）， 并确认将"卡包查询 VIN 扩展为个人中心默认车 VIN"纳入本次需求范围。<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q2</b>：副账号的授权车（主账号认证车）在 B 账号下按<b>认证车</b>还是<b>快捷车</b>身份参与默认车设置判定？（影响 B 自己快捷绑车后默认车的锁定/切换行为）<span class="owner ly">联友</span></li>
-    <li><b>Q3</b>：副账号 B 以 VIN=1 看到的券， <b>核销权限</b>是否与主账号 A 相同？（A、B 都能核销同一张券， 还是仅领取人/认证车主可核销）<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q4</b>：主副账号<b>解除授权</b>后， B 的默认车如何处理？B 已看到的 VIN 相关券是否仍在卡包展示？<span class="owner ly">联友</span><span class="owner dn">DNDC</span></li>
-    <li><b>Q5</b>：一台认证车1 同时授权<b>多个副账号</b>（B、C…）时， 是否所有副账号卡包均可见 VIN=1 相关券？是否需要上限？<span class="owner biz">业务</span></li>
-    <li><b>Q6</b>：卡包查询 VIN 取"默认车"后， 用户<b>切换默认车</b>（仅快捷车场景）时卡包券列表是否实时变化？（影响 C 端体验预期）<span class="owner dn">DNDC</span><span class="owner biz">业务</span></li>
-    <li><b>Q7</b>：<b>小程序端是否需要支持主副账号概念</b>？（现状仅 App 有主副账号， 小程序没有 —— 若需支持， <b>依赖联友开发</b>， 且 DNDC 卡包查询需同步适配小程序端）<span class="owner ly">联友</span><span class="owner biz">业务</span></li>
-  </ol>
-</div>
-
-<div class="footer">
-  依据：系统现状 1/2/3（现状 3：主副账号概念仅 App 端存在， 小程序端没有， 依赖联友开发）＋ 卡券中心原型历史逻辑（v1.7.9 我的卡券按手机号展示所有关联 VIN 卡券）。<br>
-  本文档用于需求确认， 非最终技术方案；待确认事项完成后将更新为正式 PRD。
-</div>
-
-</div>
+  <footer>lamb-r.github.io/DFN-coupon-docs</footer>
 </body>
 </html>
