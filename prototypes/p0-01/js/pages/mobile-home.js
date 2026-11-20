@@ -2,11 +2,11 @@
   'use strict';
 
   function couponCard(coupon) {
-    return '<div class="wallet-coupon" data-open-coupon="' + coupon.id + '"><div class="wallet-coupon-main"><div class="wallet-coupon-type">' + coupon.fulfillmentLabel + '兑换券</div><h3>' + coupon.name + '</h3><p>' + coupon.subtitle + '</p><div class="wallet-expire">有效期至 ' + coupon.expiresAt + '</div></div><div class="wallet-coupon-action"><button data-use-coupon="' + coupon.id + '">去使用</button></div></div>';
+    return '<div class="wallet-coupon" data-open-coupon="' + coupon.id + '"><div class="wallet-coupon-main"><div class="wallet-coupon-type">' + coupon.typeLabel + '</div><h3>' + coupon.name + '</h3><p>' + coupon.subtitle + '</p><div class="wallet-expire">有效期至 ' + coupon.expiresAt + '</div></div><div class="wallet-coupon-action"><button data-use-coupon="' + coupon.id + '">去使用</button></div></div>';
   }
 
   function openCouponDetail(couponId) {
-    var coupon = window.ExchangeCouponMock.couponExamples.find(function (item) { return item.id === couponId; });
+    var coupon = window.ExchangeCouponMock.walletCoupons.find(function (item) { return item.id === couponId; });
     var d = window.ExchangeCouponMock.couponDetail;
     var bars = '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>';
     window.openModal('<div class="modal-content mobile-coupon-detail"><div class="modal-header"><b>卡券详情 · ' + window.escapeHtml(coupon.name) + '</b><button class="btn btn-link" data-close-modal>×</button></div><div class="modal-body">' +
@@ -26,7 +26,7 @@
   window.Pages['mobile-home'] = {
     render: function () {
       var tab = window.PrototypeState.walletTab || 'all';
-      var coupons = window.ExchangeCouponMock.couponExamples.filter(function (coupon) { return coupon.phaseOne; });
+      var coupons = window.ExchangeCouponMock.walletCoupons;
       var cards = coupons.map(couponCard).join('');
       return window.prototypeShell('前台卡券中心', '卡券中心 / App与微信小程序',
         '<div class="mobile-workspace"><div class="phone"><div class="phone-notch"></div><div class="mobile-nav">我的卡券<span class="nav-right" data-history>历史优惠券</span></div><div class="mobile-body wallet-body">' +

@@ -74,6 +74,9 @@ window.ExchangeCouponMock = {
     {id:'SKU-30001',spuId:'SPU-3001',spuName:'基础洗车服务',specName:'1次',name:'基础洗车服务 1 次',category:'其他',subCategory:'养护服务',productType:'OTHER',productTypeLabel:'其他',sourceSystem:'产品中心',saleStatus:'listed',saleStatusLabel:'已上架',redeemable:true,configEligible:false,exclusionReason:'非一期GUI皮肤范围',supplierId:'PC-DEALER',supplier:'专营店服务产品中心',price:45,stock:9999,stockLabel:'充足',fulfillment:'到店核销',fulfillmentValue:'store_verify',allowedFulfillmentValues:['store_verify'],selected:false,qty:1,icon:'洗',defaultStatus:'pending_verify',description:'独立到店核销场景，本次不调整。'},
     {id:'SKU-30002',spuId:'SPU-3002',spuName:'空调系统养护服务',specName:'标准套餐',name:'空调系统养护服务',category:'其他',subCategory:'养护服务',productType:'OTHER',productTypeLabel:'其他',sourceSystem:'产品中心',saleStatus:'listed',saleStatusLabel:'已上架',redeemable:true,configEligible:false,exclusionReason:'非一期GUI皮肤范围',supplierId:'PC-DEALER',supplier:'专营店服务产品中心',price:198,stock:235,stockLabel:'235',fulfillment:'到店核销',fulfillmentValue:'store_verify',allowedFulfillmentValues:['store_verify'],selected:false,qty:1,icon:'养',defaultStatus:'verified',description:'独立到店核销场景，本次不调整。'}
   ],
+  walletCoupons: [
+    {id:'EX202607200001',name:'GUI皮肤5选2兑换券',typeLabel:'兑换券',subtitle:'5款GUI皮肤任选2件',expiresAt:'2026-08-31 23:59'}
+  ],
   couponDetail: {
     verifyCode: 'EX07 2088 6631',
     name: 'GUI皮肤5选2兑换券',
