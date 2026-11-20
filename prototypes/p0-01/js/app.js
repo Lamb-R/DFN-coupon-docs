@@ -16,6 +16,8 @@
     selectedAddressId: 'ADDR-001',
     currentRedemption: null,
     mallOrderInfo: null,
-    fulfillmentSource: 'record'
+    fulfillmentSource: 'record',
+    walletTab: 'all',
+    historyTab: 'used'
   };
 })();

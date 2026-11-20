@@ -74,6 +74,21 @@ window.ExchangeCouponMock = {
     {id:'SKU-30001',spuId:'SPU-3001',spuName:'基础洗车服务',specName:'1次',name:'基础洗车服务 1 次',category:'其他',subCategory:'养护服务',productType:'OTHER',productTypeLabel:'其他',sourceSystem:'产品中心',saleStatus:'listed',saleStatusLabel:'已上架',redeemable:true,configEligible:false,exclusionReason:'非一期GUI皮肤范围',supplierId:'PC-DEALER',supplier:'专营店服务产品中心',price:45,stock:9999,stockLabel:'充足',fulfillment:'到店核销',fulfillmentValue:'store_verify',allowedFulfillmentValues:['store_verify'],selected:false,qty:1,icon:'洗',defaultStatus:'pending_verify',description:'独立到店核销场景，本次不调整。'},
     {id:'SKU-30002',spuId:'SPU-3002',spuName:'空调系统养护服务',specName:'标准套餐',name:'空调系统养护服务',category:'其他',subCategory:'养护服务',productType:'OTHER',productTypeLabel:'其他',sourceSystem:'产品中心',saleStatus:'listed',saleStatusLabel:'已上架',redeemable:true,configEligible:false,exclusionReason:'非一期GUI皮肤范围',supplierId:'PC-DEALER',supplier:'专营店服务产品中心',price:198,stock:235,stockLabel:'235',fulfillment:'到店核销',fulfillmentValue:'store_verify',allowedFulfillmentValues:['store_verify'],selected:false,qty:1,icon:'养',defaultStatus:'verified',description:'独立到店核销场景，本次不调整。'}
   ],
+  couponDetail: {
+    verifyCode: 'EX07 2088 6631',
+    name: 'GUI皮肤5选2兑换券',
+    description: '5款GUI皮肤任选2件，兑换成功后同步发放至绑定车辆的座舱皮肤库。',
+    series: '日产全车系',
+    models: '轩逸、天籁、ARIYA（支持座舱皮肤功能的车型）',
+    claimedAt: '2026-07-20 10:30:08',
+    validPeriod: '2026-07-20 10:30 至 2026-08-31 23:59',
+    notice: '1.本券仅可兑换产品中心GUI皮肤商品，不与其他优惠叠加；2.同一次兑换最多选择2件商品，可跨SKU组合；3.确认兑换后同步调用车联网，成功即核销，失败卡券保持可使用；4.本券发放后绑定VIN，不可转赠。',
+    vin: 'LGBH52E02RS019375'
+  },
+  historyCoupons: [
+    {id:'EX202607250010',icon:'兑',typeLabel:'兑换券',name:'GUI皮肤固定组合兑换券',subtitle:'GUI皮肤固定组合 · 车联网履约',status:'used',timeText:'兑换时间：2026-08-25 10:36:18',rules:'1.本券为固定组合兑换券，兑换时一次性发放全部组合商品；2.兑换成功后卡券核销，商品同步发放至绑定车辆座舱皮肤库；3.已核销卡券不支持退换与恢复。'},
+    {id:'EX202606100020',icon:'兑',typeLabel:'兑换券',name:'GUI皮肤5选2兑换券',subtitle:'5款GUI皮肤任选2件',status:'expired',timeText:'有效期至 2026-06-30 23:59',rules:'1.本券仅可兑换产品中心GUI皮肤商品；2.过期后卡券自动失效，不可恢复；3.180天内的过期卡券可在历史优惠券中查看。'}
+  ],
   redemptionRecord: {
     orderNo:'RD202608250826', exchangeTime:'2026-08-25 10:36:18', couponStatus:'已核销',
     orderStatus:'履约成功', couponName:'GUI皮肤固定组合兑换券',
