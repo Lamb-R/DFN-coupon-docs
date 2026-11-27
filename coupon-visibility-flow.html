@@ -56,6 +56,12 @@
   .arr .line { width: 2px; height: 14px; background: #98a1ad; }
   .arr .head { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid #98a1ad; }
 
+  .arr.rel { position: relative; }
+  .arr .lbl { position: absolute; left: 50%; margin-left: 12px; top: 7px; font-size: 11px; font-weight: 700; color: #0e9f6e; white-space: nowrap; }
+  .fc .exit { width: 100%; max-width: 580px; display: flex; justify-content: flex-end; margin: 0 0 4px; }
+  .exit .tag { font-size: 11.5px; border-radius: 6px; padding: 4px 12px; background: #f4f5f7; border: 1px dashed #c4cbd6; color: #57606a; }
+  .exit .tag b { color: #3d444d; }
+
   .branch2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; width: 100%; margin-top: 2px; }
   .branch2 .col { display: flex; flex-direction: column; align-items: center; }
   .branch2 .col .tagline { font-size: 12px; font-weight: 700; padding: 2px 14px; border-radius: 999px; margin: 4px 0; }
@@ -93,7 +99,7 @@
 <div class="page">
 
 <h1>卡券中心卡包查询规则调整</h1>
-<div class="subtitle">主副账号 · 认证车 · 快捷车 ｜ 用途：与业务方确认需求 · 2026-11-11</div>
+<div class="subtitle">主副账号 · 认证车 · 快捷车 ｜ 用途：与业务方确认需求 · 2026-11-11（更新 2026-11-27）</div>
 
 <div class="legend">
   <span><span class="chip" style="border-color:#1d6fe0;background:#e8f1ff"></span>联友公司负责</span>
@@ -167,7 +173,7 @@
 <div class="concl red"><b>结论：场景 1、场景 2 现状均不支持。</b>三维度匹配机制本身已具备， 瓶颈仅在 VIN 维度 —— 只认认证车主的 VIN， 快捷车 / 副账号授权车的 VIN 均不参与。</div>
 
 <!-- ================= 流程 2：目标 ================= -->
-<h2 class="goal">三、目标流程：三维度匹配机制不变， VIN 扩展为默认车 VIN —— 两个场景均达成</h2>
+<h2 class="goal">三、目标流程：VIN 扩展为默认车 VIN；带 VIN 且关联活动 ID 的卡券，再按活动「可领取车辆类型」二次校验</h2>
 <div class="fc-wrap goal">
   <div class="fc">
     <div class="nd start">用户打开卡包（迭代后）</div>
@@ -175,44 +181,90 @@
     <div class="nd proc">读取个人中心默认车（联友 · 逻辑不变）</div>
     <div class="arr"><div class="line"></div><div class="head"></div></div>
     <div class="nd proc dn">卡包查询：手机号 / oneid / VIN 任意匹配（机制同现状）<br><span class="small"><b>迭代点</b>：VIN 取值扩展为<b>默认车 VIN</b>（含快捷车、副账号授权车）</span></div>
+    <div class="arr"><div class="line"></div><div class="head"></div></div>
+
+    <div class="nd dec">判断①：该卡券是否带 VIN？</div>
+    <div class="exit"><span class="tag"><b>否</b> → 仅按 手机号 / oneid 匹配，匹配即展示（与车辆关系无关）</span></div>
+    <div class="arr rel"><div class="line"></div><div class="head"></div><span class="lbl">是 · 带 VIN</span></div>
+
+    <div class="nd dec dn">判断②：该卡券是否关联活动 ID？</div>
+    <div class="exit"><span class="tag"><b>否</b> → 沿用图中原有规则：默认车 VIN 与卡券 VIN 一致即可见</span></div>
+    <div class="arr rel"><div class="line"></div><div class="head"></div><span class="lbl">是 · 有活动 ID</span></div>
+
+    <div class="nd data">查询活动配置字段「可领取车辆类型」<br><span class="small">取值：<b>认证车可领取</b> / <b>快捷车可领取</b> / <b>均可领取</b> —— 在 VIN 命中后按此字段二次放行</span></div>
     <div class="hbar"></div>
     <div class="branch2" style="grid-template-columns:1fr 1fr 1fr;">
       <div class="col">
-        <div class="tagline yes">场景 1 · A</div>
+        <div class="tagline yes">配置 = 认证车可领取</div>
         <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 认证车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
+        <div class="nd ok-box">认证车 → 可见 ✓<br><span class="small">快捷绑车 → 不可见 ✗</span></div>
       </div>
       <div class="col">
-        <div class="tagline yes">场景 1 · B（快捷绑车）</div>
+        <div class="tagline yes">配置 = 快捷车可领取</div>
         <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 快捷车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
+        <div class="nd ok-box">快捷绑车 → 可见 ✓<br><span class="small">认证车 → 不可见 ✗</span></div>
       </div>
       <div class="col">
-        <div class="tagline yes">场景 2 · B（仅 App）</div>
+        <div class="tagline yes">配置 = 均可领取</div>
         <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd proc dn">默认车 = 主账号授权车1<br>VIN=1 匹配</div>
-        <div class="arr"><div class="line"></div><div class="head"></div></div>
-        <div class="nd end-ok">可见券1 ✓</div>
+        <div class="nd ok-box">认证车、快捷绑车<br>均可查看 ✓</div>
       </div>
     </div>
   </div>
 </div>
-<div class="concl green"><b>结论：一处迭代同时满足两个场景</b> —— 三维度匹配机制不变， 仅将 VIN 取值从"认证车主的 VIN"扩展为"个人中心默认车 VIN"；联友默认车设置逻辑不变。</div>
+<div class="concl green"><b>结论：在原有「VIN 扩展为默认车 VIN」基础上增加一层活动校验</b> —— 不带 VIN 的卡券不受影响；带 VIN 但无活动 ID 的卡券沿用原规则；带 VIN 且关联活动 ID 的卡券，以活动配置的「可领取车辆类型」决定认证车 / 快捷绑车是否可见。联友默认车设置逻辑不变。</div>
 
 <!-- ================= 现状 vs 目标对照 ================= -->
-<h2>四、现状 × 目标 对照表</h2>
+<h2>四、现状 × 目标 对照表（按卡券配置 × 车辆关系）</h2>
 <table>
-  <tr><th style="width:230px;">场景</th><th>现状（VIN 只查认证车主）</th><th>目标（VIN 扩展为默认车 VIN）</th><th>依赖</th></tr>
-  <tr><td>场景 1 · A（认证车主）<br><span style="font-weight:400;color:#6b7280;">App ＋ 小程序</span></td><td class="ok">可见 ✓</td><td class="ok">可见 ✓</td><td>无</td></tr>
-  <tr><td>场景 1 · B（快捷绑车）<br><span style="font-weight:400;color:#6b7280;">App ＋ 小程序</span></td><td class="no3">不可见 ✗（快捷 VIN 不参与查询）</td><td class="ok">可见 ✓</td><td>DNDC：VIN 扩展至默认车（含快捷车）</td></tr>
-  <tr><td>场景 2 · A（主账号）<br><span style="font-weight:400;color:#6b7280;">仅 App</span></td><td class="ok">可见 ✓</td><td class="ok">可见 ✓</td><td>无</td></tr>
-  <tr><td>场景 2 · B（副账号， 默认车=主账号授权车）<br><span style="font-weight:400;color:#6b7280;">仅 App（小程序无主副账号概念）</span></td><td class="no3">不可见 ✗（卡包不查询副账号 VIN）</td><td class="ok">可见 ✓</td><td>DNDC：VIN 扩展至默认车（含授权车）；<br>联友默认车设置已支持 <span class="ok">✓</span></td></tr>
-  <tr><td>小程序端主副账号能力</td><td class="no3">不支持 ✗（小程序无主副账号概念）</td><td>按需评估</td><td class="qmark">依赖联友开发 —— 是否纳入范围待业务确认</td></tr>
+  <tr>
+    <th style="width:190px;">卡券情形</th>
+    <th style="width:180px;">现状</th>
+    <th>目标 · 认证车主<br><span style="font-weight:400;color:#6b7280;">场景 1·A / 2·A</span></th>
+    <th>目标 · 快捷绑车<br><span style="font-weight:400;color:#6b7280;">场景 1·B</span></th>
+    <th>目标 · 副账号<br><span style="font-weight:400;color:#6b7280;">场景 2·B（仅 App）</span></th>
+  </tr>
+  <tr>
+    <td>不带 VIN<br><span style="font-weight:400;color:#6b7280;">手机号 / oneid 匹配</span></td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓</td>
+  </tr>
+  <tr>
+    <td>带 VIN · <b>未关联活动 ID</b></td>
+    <td class="no3">快捷 VIN / 副账号 VIN 不参与 ✗</td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓<br><span style="font-weight:400;color:#6b7280;">默认车 VIN 扩展</span></td>
+    <td class="ok">可见 ✓<br><span style="font-weight:400;color:#6b7280;">授权车 VIN 扩展</span></td>
+  </tr>
+  <tr>
+    <td>带 VIN · 活动配置<b>「认证车可领取」</b></td>
+    <td class="no3">不区分车辆类型（快捷 VIN 不参与）</td>
+    <td class="ok">可见 ✓</td>
+    <td class="no3">不可见 ✗<br><span style="font-weight:400;color:#6b7280;">活动仅限认证车</span></td>
+    <td class="ok">可见 ✓<br><span style="font-weight:400;color:#6b7280;">默认车为主账号认证车</span></td>
+  </tr>
+  <tr>
+    <td>带 VIN · 活动配置<b>「快捷车可领取」</b></td>
+    <td class="no3">不区分车辆类型（快捷 VIN 不参与）</td>
+    <td class="no3">不可见 ✗<br><span style="font-weight:400;color:#6b7280;">活动仅限快捷车</span></td>
+    <td class="ok">可见 ✓</td>
+    <td class="no3">不可见 ✗<br><span style="font-weight:400;color:#6b7280;">默认车为认证车</span></td>
+  </tr>
+  <tr>
+    <td>带 VIN · 活动配置<b>「均可领取」</b></td>
+    <td class="no3">快捷 VIN / 副账号 VIN 不参与 ✗</td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓</td>
+    <td class="ok">可见 ✓</td>
+  </tr>
 </table>
+<div style="font-size:11.5px;color:#6b7280;line-height:1.9;margin:2px 0 6px;">
+  说明：① 带 VIN 且关联活动 ID 的卡券，先按 VIN 命中，再按活动配置的「可领取车辆类型」二次校验；<br>
+  ② 副账号默认车为主账号授权的认证车，本表按「认证车」口径放行 —— 该归类需业务确认；<br>
+  ③ 小程序端无主副账号概念，"副账号"列仅适用于 App；小程序端按认证车 / 快捷车两列执行。
+</div>
 
 <!-- ================= 待确认清单 ================= -->
 <h2>五、待业务方确认清单（此规则为现状， 需业务知悉）</h2>
@@ -220,6 +272,8 @@
   <ol>
     <li><b>Q1</b>：仅有快捷车时：可在快捷车之间<b>互相切换默认车辆</b>；存在认证车时：<b>只能设置认证车为默认车辆</b>。<span class="owner ly">联友</span></li>
     <li><b>Q2</b>：<b>主副账号概念仅 App 端存在， 小程序端没有主副账号概念</b>。<span class="owner ly">联友</span></li>
+    <li><b>Q3</b>：卡券关联的活动 ID 上「可领取车辆类型」字段的取值与来源（认证车 / 快捷车 / 均可领取），以及带 VIN 但无活动 ID 的存量卡券是否按原规则处理。<span class="owner biz">业务</span></li>
+    <li><b>Q4</b>：副账号默认车（主账号授权车）在活动校验中按<b>认证车</b>口径放行，是否符合业务预期。<span class="owner biz">业务</span></li>
   </ol>
 </div>
 
